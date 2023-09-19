@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Library.Pages.BookEditPage"
+             xmlns:viewmodel="clr-namespace:Library.ViewModels"             
+             Title="BookEdit"
+             x:DataType="viewmodel:BookViewModel">
+
+    <VerticalStackLayout>
+        <Label Text="Title"></Label>
+        <Entry Text="{Binding Title}" Placeholder="Title"/>
+        
+        <Label Text="Description"></Label>
+        <Entry Text="{Binding Description}" Placeholder="Description"/>
+        
+        <Label Text="Publisher"></Label>
+        <Entry Text="{Binding Publisher}" Placeholder="Publisher"/>
+        
+        <Label Text="Author"></Label>
+        <Entry Text="{Binding Author}" Placeholder="Author"/>
+
+        <Button Text="Save" Command="{Binding SaveCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>
