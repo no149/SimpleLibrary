@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/FinderTest/bin/Debug/net7.0
+/FinderTest/obj
+/BookFinder/bin/Debug/net7.0
+/BookFinder/obj
+/Library/bin/Debug/net7.0-windows10.0.19041.0/win10-x64
+/Library/obj
+/Data/bin/Debug/net7.0
+/Data/obj/Debug/net7.0
+/Data/obj
