@@ -20,6 +20,8 @@ namespace Library.ViewModels
         [ObservableProperty]
         private BookViewModel _selectedItem;
         private BookViewModel _bookVm;
+        [ObservableProperty]
+        private bool _isBookSelected = false;
 
         private void BookViewModel_OnBookChanged(object sender, BookChangedEventArgs e)
         {
@@ -61,7 +63,6 @@ namespace Library.ViewModels
                 }
             }
         }
-
         public MainViewModel(BookViewModel bookViewModel)
         {
             _bookVm = bookViewModel;
@@ -77,6 +78,12 @@ namespace Library.ViewModels
                 EditButtonText = "Add";
             else
                 EditButtonText = "Edit";
+        }
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            IsBookSelected = SelectedItem != null;
         }
     }
 }
