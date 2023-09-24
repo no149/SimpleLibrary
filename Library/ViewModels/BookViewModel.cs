@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Capture.Core;
 
 namespace Library.ViewModels
 {
@@ -53,6 +54,7 @@ namespace Library.ViewModels
             Description = book.Description;
             Price = book.Price;
             Id = book.Id;
+            CoverImage = Convert.ToBase64String(book.CoverImage ??Array.Empty<byte>());
         }
 
         public bool IsNew
@@ -86,7 +88,8 @@ namespace Library.ViewModels
                 book.Title = Title;
 
                 dbcontext.SaveChanges();
-                OnBookChanged?.Invoke(this, new BookChangedEventArgs() { Book = new BookViewModel(book), IsNew = Id == 0 });
+                OnBookChanged?.Invoke(this, new BookChangedEventArgs() { Book = new BookViewModel(book), 
+                ChangeType = Id == 0? ChangeType.Added:ChangeType.Changed });
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -95,7 +98,20 @@ namespace Library.ViewModels
         [RelayCommand]
         async Task GoBack()
         {
+
         }
+        [RelayCommand]
+        async Task SelectImage()
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+
+
+            }
+        }
+
+  
 
         internal void Copy(BookViewModel selectedItem)
         {

@@ -7,17 +7,26 @@
              x:DataType="viewmodel:BookViewModel">
 
     <VerticalStackLayout>
-        <Label Text="Title"></Label>
+        <Label Text="عنوان"></Label>
         <Entry Text="{Binding Title}" Placeholder="Title"/>
         
-        <Label Text="Description"></Label>
+        <Label Text="توضیح"></Label>
         <Entry Text="{Binding Description}" Placeholder="Description"/>
         
-        <Label Text="Publisher"></Label>
+        <Label Text="ناشر"></Label>
         <Entry Text="{Binding Publisher}" Placeholder="Publisher"/>
         
-        <Label Text="Author"></Label>
+        <Label Text="نویسنده"></Label>
         <Entry Text="{Binding Author}" Placeholder="Author"/>
+
+
+<Label Text="تصویر جلد"></Label>
+        <Image Source="{Binding CoverImage }" MinimumHeightRequest="100" MinimumWidthRequest="100">
+    <Image.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding SelectImageCommand}"
+                              NumberOfTapsRequired="1" />
+  </Image.GestureRecognizers>
+  </Image>
 
         <Button Text="Save" Command="{Binding SaveCommand}"></Button>
     </VerticalStackLayout>

@@ -1,8 +1,13 @@
 ﻿namespace Library.ViewModels
 {
+    public enum ChangeType{
+        Added,
+        Changed,
+        Deleted
+    }
     public class BookChangedEventArgs:EventArgs
     {
         public BookViewModel Book;
-        public bool IsNew;
+        public ChangeType ChangeType;
     }
 }

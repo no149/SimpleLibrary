@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Library.Data;
 using Library.Pages;
 using System;
@@ -25,14 +26,18 @@ namespace Library.ViewModels
 
         private void BookViewModel_OnBookChanged(object sender, BookChangedEventArgs e)
         {
-            if (e.IsNew)
+            if (e.ChangeType == ChangeType.Added)
             {
                 Books.Add(e.Book);
             }
-            else
+            else if (e.ChangeType == ChangeType.Changed)
             {
                 var book = Books.Single(b => b.Id == e.Book.Id);
                 book.Copy(e.Book);
+            }
+            else
+            {
+                Books.Remove(e.Book);
             }
         }
 
@@ -67,7 +72,6 @@ namespace Library.ViewModels
         {
             _bookVm = bookViewModel;
             Books = new ObservableCollection<BookViewModel>();
-            bookViewModel.OnBookChanged += BookViewModel_OnBookChanged;
             PropertyChanged += HandlePropertyChanged;
 
         }
@@ -84,6 +88,19 @@ namespace Library.ViewModels
         {
             base.OnPropertyChanged(e);
             IsBookSelected = SelectedItem != null;
+        }
+        [RelayCommand]
+        async Task DeleteBook(int bookId)
+        {
+            using (var dbcontext = new LibraryDbContext())
+            {
+                var book = dbcontext.Books.Single(book => book.Id == bookId);
+
+                dbcontext.Remove(book);
+                dbcontext.SaveChanges();
+                var bookVm = Books.Single(b => b.Id == bookId);
+                Books.Remove(bookVm);
+            }
         }
     }
 }
