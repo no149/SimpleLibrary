@@ -17,14 +17,14 @@ namespace Library.ViewModels
         [ObservableProperty]
         private ObservableCollection<BookViewModel> _books;
         [ObservableProperty]
-        private string _editButtonText = "Add";
+        private string _editButtonText = "کتاب جدید";
         [ObservableProperty]
         private BookViewModel _selectedItem;
         private BookViewModel _bookVm;
         [ObservableProperty]
         private bool _isBookSelected = false;
 
-        private void BookViewModel_OnBookChanged(object sender, BookChangedEventArgs e)
+        private void OnBookChanged(object sender, BookChangedEventArgs e)
         {
             if (e.ChangeType == ChangeType.Added)
             {
@@ -73,15 +73,16 @@ namespace Library.ViewModels
             _bookVm = bookViewModel;
             Books = new ObservableCollection<BookViewModel>();
             PropertyChanged += HandlePropertyChanged;
+            _bookVm.OnBookChanged += OnBookChanged;
 
         }
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (SelectedItem == null)
-                EditButtonText = "Add";
+                EditButtonText = "کتاب جدید";
             else
-                EditButtonText = "Edit";
+                EditButtonText = "ویرایش";
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)

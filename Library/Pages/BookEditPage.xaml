@@ -3,31 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Library.Pages.BookEditPage"
              xmlns:viewmodel="clr-namespace:Library.ViewModels"             
-             Title="BookEdit"
-             x:DataType="viewmodel:BookViewModel">
+             Title="{Binding Title}"
+             x:DataType="viewmodel:BookViewModel" FlowDirection="RightToLeft">
+    <ContentPage.Resources>
+        <Style x:Key="label" TargetType="Label">
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </ContentPage.Resources>
 
-    <VerticalStackLayout>
-        <Label Text="عنوان"></Label>
-        <Entry Text="{Binding Title}" Placeholder="Title"/>
-        
-        <Label Text="توضیح"></Label>
-        <Entry Text="{Binding Description}" Placeholder="Description"/>
-        
-        <Label Text="ناشر"></Label>
-        <Entry Text="{Binding Publisher}" Placeholder="Publisher"/>
-        
-        <Label Text="نویسنده"></Label>
-        <Entry Text="{Binding Author}" Placeholder="Author"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
+        </Grid.RowDefinitions>
 
 
-<Label Text="تصویر جلد"></Label>
-        <Image Source="{Binding CoverImage }" MinimumHeightRequest="100" MinimumWidthRequest="100">
-    <Image.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding SelectImageCommand}"
+        <FlexLayout Grid.Row="0" Wrap="NoWrap" AlignItems="Center">
+            <Label Text="عنوان" Style="{StaticResource label}" ></Label>
+            <Entry Text="{Binding Title}" Placeholder="عنوان" FlexLayout.Grow="1"/>
+        </FlexLayout>
+
+        <FlexLayout Grid.Row="1" Wrap="NoWrap" AlignItems="Center">
+            <Label Text="توضیح" Style="{StaticResource label}" />
+            <Entry Text="{Binding Description}" Placeholder="توضیح"   FlexLayout.Grow="1"/>
+        </FlexLayout>
+
+        <FlexLayout Grid.Row="2" Wrap="NoWrap" AlignItems="Center">
+            <Label Text="ناشر" Style="{StaticResource label}"/>
+            <Entry Text="{Binding Publisher}" Placeholder="ناشر" FlexLayout.Grow="1"/>
+        </FlexLayout>
+
+        <FlexLayout Grid.Row="3" Wrap="NoWrap" AlignItems="Center">
+            <Label Text="نویسنده" Style="{StaticResource label}" ></Label>
+            <Entry Text="{Binding Author}" Placeholder="نویسنده" FlexLayout.Grow="1"/>
+        </FlexLayout>
+
+        
+
+            
+            <Image Grid.Row="4" Source="{Binding CoverImage }" BackgroundColor="AliceBlue" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectImageCommand}"
                               NumberOfTapsRequired="1" />
-  </Image.GestureRecognizers>
-  </Image>
+                    <ClickGestureRecognizer Command="{Binding SelectImageCommand}"
+                             />
+                </Image.GestureRecognizers>
+            </Image>
+        
 
-        <Button Text="Save" Command="{Binding SaveCommand}"></Button>
-    </VerticalStackLayout>
+        <Button Text="Save" Command="{Binding SaveCommand}" Grid.Row="5"></Button>
+    </Grid>
 </ContentPage>

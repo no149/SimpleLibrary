@@ -54,7 +54,7 @@ namespace Library.ViewModels
             Description = book.Description;
             Price = book.Price;
             Id = book.Id;
-            CoverImage = Convert.ToBase64String(book.CoverImage ??Array.Empty<byte>());
+            CoverImage = Convert.ToBase64String(book.CoverImage ?? Array.Empty<byte>());
         }
 
         public bool IsNew
@@ -88,8 +88,11 @@ namespace Library.ViewModels
                 book.Title = Title;
 
                 dbcontext.SaveChanges();
-                OnBookChanged?.Invoke(this, new BookChangedEventArgs() { Book = new BookViewModel(book), 
-                ChangeType = Id == 0? ChangeType.Added:ChangeType.Changed });
+                OnBookChanged?.Invoke(this, new BookChangedEventArgs()
+                {
+                    Book = new BookViewModel(book),
+                    ChangeType = Id == 0 ? ChangeType.Added : ChangeType.Changed
+                });
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -105,13 +108,16 @@ namespace Library.ViewModels
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-
+                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+                if (photo != null)
+                {
+                    CoverImage = photo.FullPath;
+                }
 
             }
         }
 
-  
+
 
         internal void Copy(BookViewModel selectedItem)
         {
