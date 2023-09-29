@@ -52,39 +52,40 @@
                 <CollectionView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="TitleColumn" Width="25*" />
-                            <ColumnDefinition x:Name="AuthorColumn" Width="25*" />
-                            <ColumnDefinition x:Name="PublisherColumn" Width="10*" />
-                            <ColumnDefinition x:Name="TranslatorColumn" Width="10*" />
-                            <ColumnDefinition x:Name="PriceColumn" Width="10*" />
-                            <ColumnDefinition x:Name="DescriptionColumn" Width="10*" />
-                            <ColumnDefinition x:Name="LanguageColumn" Width="5*" />
-                            <ColumnDefinition x:Name="ImageColumn" Width="5*" />
+                            <ColumnDefinition Width="25*" />
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="15*"/>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="0" Text="عنوان" Style="{StaticResource heading}"  />
+                            <Label Grid.Column="0" Text="تصویر جلد" Style="{StaticResource heading}"  />
                         </Border>
                         <Border Grid.Column="1" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="1" Text="نویسنده" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="7" Text="عنوان" Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="2" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="2" Text="ناشر"  Style="{StaticResource heading}"/>
+                            <Label Grid.Column="1" Text="نویسنده" Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="3" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="3" Text="مترجم" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="2" Text="ناشر"  Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="4" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="4" Text="قیمت" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="3" Text="مترجم" Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="5" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="5" Text="توضیح" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="4" Text="قیمت" Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="6" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="6" Text="زبان" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="5" Text="توضیح" Style="{StaticResource heading}"/>
                         </Border>
                         <Border Grid.Column="7" Style="{StaticResource Key=headingBorder}">
-                            <Label Grid.Column="7" Text="تصویر جلد" Style="{StaticResource heading}"/>
+                            <Label Grid.Column="6" Text="زبان" Style="{StaticResource heading}"/>
                         </Border>
+                        
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
@@ -104,28 +105,27 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25*" />
-                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="15*"/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition Width="5*"/>
-                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="15*"/>
                             </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Text="{Binding Title}" Style="{StaticResource cell}">
-                               
-                            </Label>
+                                <Image Grid.Column="0" Source="{Binding CoverImage}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="1" Text="{Binding Title}" Style="{StaticResource cell}"/>
 
 
-                                <Label Grid.Column="1" Text="{Binding Author}" Style="{StaticResource cell}"/>
 
-                                <Label Grid.Column="2" Text="{Binding Publisher}" Style="{StaticResource cell}"/>
-                                <Label Grid.Column="3" Text="{Binding Translator}" Style="{StaticResource cell}"/>
-                                <Label Grid.Column="4" Text="{Binding Price}" Style="{StaticResource cell}"/>
-                                <Label Grid.Column="5" Text="{Binding Description}" Style="{StaticResource cell}"/>
-                                <Label Grid.Column="6" Text="{Binding Language}" Style="{StaticResource cell}"/>
-                                <Label Grid.Column="7" Text="{Binding CoverImage}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="2" Text="{Binding Author}" Style="{StaticResource cell}"/>
+
+                                <Label Grid.Column="3" Text="{Binding Publisher}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="4" Text="{Binding Translator}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="5" Text="{Binding Price}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="6" Text="{Binding Description}" Style="{StaticResource cell}"/>
+                                <Label Grid.Column="7" Text="{Binding Language}" Style="{StaticResource cell}"/>
                           
                         </Grid>
                         </SwipeView>
