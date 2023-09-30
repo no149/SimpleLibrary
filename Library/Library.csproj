@@ -53,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\arrow-left-circle-outline.svg" />
 	  <None Remove="Resources\Images\book_cover_placeholder.jpg" />
 	</ItemGroup>
 

@@ -6,7 +6,6 @@
              xmlns:viewmodel="clr-namespace:Library.ViewModels"
              x:DataType="viewmodel:MainViewModel" Loaded="ContentPage_Loaded" FlowDirection="RightToLeft">
     <ContentPage.Resources>
-
         <Style  x:Key="heading" TargetType="Label">
             <Setter Property="Background" Value="#ccc"/>
             <Setter Property="Padding" Value="5"></Setter>
@@ -31,11 +30,22 @@
             <Setter Property="Stroke" Value="black"></Setter>
         </Style>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding EditButtonText}" Command="{Binding AddOrEditBookCommand}"/>
+    </ContentPage.ToolbarItems>
 
-    <ScrollView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="92*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+    <ScrollView Grid.Row="0">
         <Grid RowDefinitions="80*,20*" ColumnDefinitions="*">
             <CollectionView ItemsSource="{Binding Books}"
-                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" >
                 <CollectionView.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -48,7 +58,7 @@
                         </Style.Triggers>
                     </Style>
                 </CollectionView.Style>
-                
+
                 <CollectionView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -85,7 +95,7 @@
                         <Border Grid.Column="7" Style="{StaticResource Key=headingBorder}">
                             <Label Grid.Column="6" Text="زبان" Style="{StaticResource heading}"/>
                         </Border>
-                        
+
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
@@ -132,7 +142,17 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="{Binding EditButtonText}" Grid.Row="1" MinimumHeightRequest="10" Command="{Binding AddOrEditBookCommand}"></Button>
         </Grid>
     </ScrollView>
+    <Grid Grid.Row="1" HorizontalOptions="Fill" BackgroundColor="Azure">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" HorizontalOptions="Fill" ImageSource="{FontImageSource   Glyph='&#x000002C3;'}"/>
+            <Label Text="4" Grid.Column="1" HorizontalOptions="Center"/>
+            <Button ImageSource="{FontImageSource   Glyph='&#x000002C2;'}" Grid.Column="2" HorizontalOptions="Fill"/>
+    </Grid>
+    </Grid>
 </ContentPage>

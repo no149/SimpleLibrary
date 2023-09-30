@@ -117,7 +117,7 @@ namespace Library.ViewModels
                 book.Title = Title;
 
 
-                if (_coverImagePath != _coverImagePlaceHolder)
+                if (_coverImagePath != _coverImagePlaceHolder && string.IsNullOrEmpty(_coverImagePath)==false)
                 {
                     var imageStream = new FileStream(_coverImagePath, FileMode.Open);
                     using (imageStream)
