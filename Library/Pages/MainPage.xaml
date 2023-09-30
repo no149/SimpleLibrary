@@ -150,9 +150,9 @@
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" HorizontalOptions="Fill" ImageSource="{FontImageSource   Glyph='&#x000002C3;'}"/>
-            <Label Text="4" Grid.Column="1" HorizontalOptions="Center"/>
-            <Button ImageSource="{FontImageSource   Glyph='&#x000002C2;'}" Grid.Column="2" HorizontalOptions="Fill"/>
+            <Button Grid.Column="0" HorizontalOptions="Fill" ImageSource="{FontImageSource   Glyph='&#x000002C3;'}" Command="{Binding NextPageCommand}"/>
+            <Label Text="{Binding CurrentPage}" Grid.Column="1" HorizontalOptions="Center"/>
+            <Button ImageSource="{FontImageSource   Glyph='&#x000002C2;'}" Grid.Column="2" HorizontalOptions="Fill" Command="{Binding PreviousPageCommand}"/>
     </Grid>
     </Grid>
 </ContentPage>

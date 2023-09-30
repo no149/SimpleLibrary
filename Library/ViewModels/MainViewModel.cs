@@ -24,6 +24,9 @@ namespace Library.ViewModels
         [ObservableProperty]
         private bool _isBookSelected = false;
 
+        [ObservableProperty]
+        private int _currentPage=1;
+        private int _pageSize=10;
         private void OnBookChanged(object sender, BookChangedEventArgs e)
         {
             if (e.ChangeType == ChangeType.Added)
@@ -59,9 +62,10 @@ namespace Library.ViewModels
         internal void LoadBooks()
         {
             var dbContext = new LibraryDbContext();
+            Books.Clear();
             using (dbContext)
             {
-                var books = dbContext.Books;
+                var books = dbContext.Books.Skip((CurrentPage - 1) * _pageSize).Take(_pageSize);
                 foreach (var book in books)
                 {
                     Books.Add(new BookViewModel(book));
@@ -102,6 +106,20 @@ namespace Library.ViewModels
                 var bookVm = Books.Single(b => b.Id == bookId);
                 Books.Remove(bookVm);
             }
+        }
+
+        [RelayCommand]
+        void NextPage()
+        {
+            CurrentPage++;
+            LoadBooks();
+        }
+
+        [RelayCommand]
+        void PreviousPage()
+        {
+            CurrentPage--;
+            LoadBooks();
         }
     }
 }
