@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Library.Data;
 using Library.Pages;
-using Microsoft.Windows.ApplicationModel.DynamicDependency;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -129,6 +128,13 @@ namespace Library.ViewModels
             UpdatePaging();
         }
 
+        [RelayCommand]
+        void Search(string text)
+        {
+            //todo
+
+
+        }
         [RelayCommand]
         void PreviousPage()
         {

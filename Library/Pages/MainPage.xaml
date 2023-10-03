@@ -31,7 +31,8 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding EditButtonText}" Command="{Binding AddOrEditBookCommand}"/>
+        <ToolbarItem Text="{Binding EditButtonText}" Command="{Binding AddOrEditBookCommand}" Order="Primary"/>
+        <ToolbarItem Text="جستجو" Command="{Binding SearchCommand}" Order="Primary"/>
     </ContentPage.ToolbarItems>
 
     <Grid>

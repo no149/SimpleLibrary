@@ -5,14 +5,12 @@ using Library.Data.Models;
 using Library.Models;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Graphics.Win2D;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Media.Capture.Core;
 
 namespace Library.ViewModels
 {
@@ -63,11 +61,13 @@ namespace Library.ViewModels
 
             if (book.CoverImage != null)
             {
+                Microsoft.Maui.Graphics.IImage image;
 #if ANDROID
-    // PlatformImage isn't currently supported on Windows.
-    var image = PlatformImage.FromStream(stream);
+                // PlatformImage isn't currently supported on Windows.
+                using (var memStream = new MemoryStream(book.CoverImage))
+                     image = Microsoft.Maui.Graphics.Platform.PlatformImage.FromStream(memStream);
 #elif WINDOWS
-                var image = new W2DImageLoadingService().FromBytes(book.CoverImage);
+                 image = new Microsoft.Maui.Graphics.Win2D.W2DImageLoadingService().FromBytes(book.CoverImage);
 #endif
                 var extension = Path.GetExtension(_coverImagePath);
                 var format = ImageFormat.Gif;
@@ -79,7 +79,7 @@ namespace Library.ViewModels
                     case "png":
                         format = ImageFormat.Png;
                         break;
-                    
+
                 }
                 CoverImage = ImageSource.FromStream(x => Task.FromResult(image.AsStream(format)));
             }
@@ -117,7 +117,7 @@ namespace Library.ViewModels
                 book.Title = Title;
 
 
-                if (_coverImagePath != _coverImagePlaceHolder && string.IsNullOrEmpty(_coverImagePath)==false)
+                if (_coverImagePath != _coverImagePlaceHolder && string.IsNullOrEmpty(_coverImagePath) == false)
                 {
                     var imageStream = new FileStream(_coverImagePath, FileMode.Open);
                     using (imageStream)
