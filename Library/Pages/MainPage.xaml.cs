@@ -15,7 +15,7 @@ namespace Library.Pages
 
         private void ContentPage_Loaded(object sender, EventArgs e)
         {
-            _vm.LoadBooks();
+            _vm.Init();
         }
     }
 }

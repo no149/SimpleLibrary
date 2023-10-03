@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Library.Data;
 using Library.Pages;
+using Microsoft.Windows.ApplicationModel.DynamicDependency;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,8 +26,14 @@ namespace Library.ViewModels
         private bool _isBookSelected = false;
 
         [ObservableProperty]
-        private int _currentPage=1;
-        private int _pageSize=10;
+        private int _currentPage = 1;
+        [ObservableProperty]
+        private int _totalPages = 1;
+        private int _pageSize = 10;
+        [ObservableProperty]
+        private bool _canNavigatePreviousPage = false;
+        [ObservableProperty]
+        private bool _canNavigateNextPage = false;
         private void OnBookChanged(object sender, BookChangedEventArgs e)
         {
             if (e.ChangeType == ChangeType.Added)
@@ -44,6 +51,11 @@ namespace Library.ViewModels
             }
         }
 
+
+
+
+
+
         [CommunityToolkit.Mvvm.Input.RelayCommand]
         async Task AddOrEditBook()
         {
@@ -59,7 +71,7 @@ namespace Library.ViewModels
             }
         }
 
-        internal void LoadBooks()
+        internal void Init()
         {
             var dbContext = new LibraryDbContext();
             Books.Clear();
@@ -71,6 +83,7 @@ namespace Library.ViewModels
                     Books.Add(new BookViewModel(book));
                 }
             }
+            UpdatePaging();
         }
         public MainViewModel(BookViewModel bookViewModel)
         {
@@ -112,14 +125,32 @@ namespace Library.ViewModels
         void NextPage()
         {
             CurrentPage++;
-            LoadBooks();
+            Init();
+            UpdatePaging();
         }
 
         [RelayCommand]
         void PreviousPage()
         {
             CurrentPage--;
-            LoadBooks();
+            Init();
+
         }
+
+        private void UpdatePaging()
+        {
+            CanNavigatePreviousPage = CurrentPage >= 2;
+            var dbContext = new LibraryDbContext();
+            using (dbContext)
+            {
+                var totalpages = Math.Ceiling((decimal)dbContext.Books.Count() / _pageSize);
+                CanNavigateNextPage = CurrentPage < totalpages;
+                TotalPages = (int)totalpages;
+            }
+
+
+        }
+
+
     }
 }
