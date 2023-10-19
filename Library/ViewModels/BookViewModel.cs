@@ -144,6 +144,12 @@ namespace Library.ViewModels
 
         }
         [RelayCommand]
+        async Task ScanBarcode(){
+            Console.WriteLine("ScanBarcodeCommand");
+
+            
+        }
+        [RelayCommand]
         async Task SelectImage()
         {
             if (MediaPicker.Default.IsCaptureSupported)

@@ -32,18 +32,23 @@
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding EditButtonText}" Command="{Binding AddOrEditBookCommand}" Order="Primary"/>
-        <ToolbarItem Text="جستجو" Command="{Binding SearchCommand}" Order="Primary"/>
+        <ToolbarItem Text="جستجو" Command="{Binding ToggleSearchCommand}" Order="Primary"/>
     </ContentPage.ToolbarItems>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="92*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <ScrollView Grid.Row="0">
+        <FlexLayout Grid.Row="0" IsVisible="{Binding IsSearchMode}" Wrap="NoWrap">
+        <Entry Placeholder="جستجو"   FlexLayout.Grow="1" x:Name="SearchText" Text="{Binding SearchText}"/>
+     <Button Text="جستجو" Command="{Binding SearchCommand}"/>
+     </FlexLayout>
+        <ScrollView Grid.Row="1">
             <Grid RowDefinitions="80*,20*" ColumnDefinitions="*">
                 <CollectionView ItemsSource="{Binding Books}"
                 ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" >
@@ -145,7 +150,7 @@
                 </CollectionView>
             </Grid>
         </ScrollView>
-        <Grid Grid.Row="1" HorizontalOptions="Fill" BackgroundColor="Azure" Margin="0,20,0,0">
+        <Grid Grid.Row="2" HorizontalOptions="Fill" BackgroundColor="Azure" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="33*"/>

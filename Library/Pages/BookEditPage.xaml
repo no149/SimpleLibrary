@@ -13,7 +13,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="18*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="18*"/>
             <RowDefinition Height="18*"/>
             <RowDefinition Height="18*"/>
@@ -21,23 +22,24 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
+<Button Text="اسکن بارکد" Command="{Binding ScanBarcodeCommand}" Grid.Row="0"/>
 
-        <FlexLayout Grid.Row="0" Wrap="NoWrap" AlignItems="Center">
+        <FlexLayout Grid.Row="1" Wrap="NoWrap" AlignItems="Center">
             <Label Text="عنوان" Style="{StaticResource label}" MinimumWidthRequest="75"></Label>
             <Entry Text="{Binding Title}" Placeholder="عنوان" FlexLayout.Grow="1"/>
         </FlexLayout>
 
-        <FlexLayout Grid.Row="1" Wrap="NoWrap" AlignItems="Center">
+        <FlexLayout Grid.Row="2" Wrap="NoWrap" AlignItems="Center">
             <Label Text="توضیح" Style="{StaticResource label}" MinimumWidthRequest="75"/>
             <Entry Text="{Binding Description}" Placeholder="توضیح"   FlexLayout.Grow="1"/>
         </FlexLayout>
 
-        <FlexLayout Grid.Row="2" Wrap="NoWrap" AlignItems="Center">
+        <FlexLayout Grid.Row="3" Wrap="NoWrap" AlignItems="Center">
             <Label Text="ناشر" Style="{StaticResource label}" MinimumWidthRequest="75"/>
             <Entry Text="{Binding Publisher}" Placeholder="ناشر" FlexLayout.Grow="1"/>
         </FlexLayout>
 
-        <FlexLayout Grid.Row="3" Wrap="NoWrap" AlignItems="Center">
+        <FlexLayout Grid.Row="4" Wrap="NoWrap" AlignItems="Center">
             <Label Text="نویسنده" Style="{StaticResource label}" MinimumWidthRequest="75"></Label>
             <Entry Text="{Binding Author}" Placeholder="نویسنده" FlexLayout.Grow="1"/>
         </FlexLayout>
@@ -45,7 +47,7 @@
 
 
         
-        <Image Grid.Row="4" Source="{Binding CoverImage}" Margin="0,1" >
+        <Image Grid.Row="5" Source="{Binding CoverImage}" Margin="0,1" >
             <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectImageCommand}"
                               NumberOfTapsRequired="1" />
@@ -55,6 +57,7 @@
             </Image>
 
 
-        <Button Text="ذخیره" Command="{Binding SaveCommand}" Grid.Row="5"/>
+        <Button Text="ذخیره" Command="{Binding SaveCommand}" Grid.Row="6"/>
     </Grid>
+
 </ContentPage>

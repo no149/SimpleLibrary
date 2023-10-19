@@ -33,6 +33,11 @@ namespace Library.ViewModels
         private bool _canNavigatePreviousPage = false;
         [ObservableProperty]
         private bool _canNavigateNextPage = false;
+
+        [ObservableProperty]
+        private bool _isSearchMode = false;
+        [ObservableProperty]
+        private string _searchText;
         private void OnBookChanged(object sender, BookChangedEventArgs e)
         {
             if (e.ChangeType == ChangeType.Added)
@@ -72,11 +77,20 @@ namespace Library.ViewModels
 
         internal void Init()
         {
+            LoadBooks();
+        }
+
+        internal void LoadBooks()
+        {
             var dbContext = new LibraryDbContext();
             Books.Clear();
             using (dbContext)
             {
-                var books = dbContext.Books.Skip((CurrentPage - 1) * _pageSize).Take(_pageSize);
+                var books = dbContext.Books.AsQueryable();
+                if (!string.IsNullOrEmpty(SearchText))
+                    books = books.Where(b => b.Title.Contains(SearchText));
+
+                books = books.OrderBy(b=>b.Title).Skip((CurrentPage - 1) * _pageSize).Take(_pageSize);
                 foreach (var book in books)
                 {
                     Books.Add(new BookViewModel(book));
@@ -124,32 +138,47 @@ namespace Library.ViewModels
         void NextPage()
         {
             CurrentPage++;
-            Init();
-            UpdatePaging();
+            LoadBooks();
         }
 
         [RelayCommand]
         void Search(string text)
         {
+            LoadBooks();
+        }
+
+        [RelayCommand]
+        void ToggleSearch()
+        {
             //todo
-
-
+            IsSearchMode = !IsSearchMode;
+            if (!IsSearchMode)
+            {
+                SearchText = "";
+                CurrentPage=1;
+                LoadBooks();
+            }
         }
         [RelayCommand]
         void PreviousPage()
         {
             CurrentPage--;
-            Init();
+            LoadBooks();
 
         }
-
-        private void UpdatePaging()
+        internal void UpdatePaging()
         {
             CanNavigatePreviousPage = CurrentPage >= 2;
             var dbContext = new LibraryDbContext();
             using (dbContext)
             {
-                var totalpages = Math.Ceiling((decimal)dbContext.Books.Count() / _pageSize);
+                var totalpages = 0M;
+                if (!string.IsNullOrEmpty(SearchText))
+                    totalpages = Math.Ceiling((decimal)dbContext.Books.Where(b => b.Title.Contains(SearchText)).Count() / _pageSize);
+                else
+                    totalpages = Math.Ceiling((decimal)dbContext.Books.Count() / _pageSize);
+
+
                 CanNavigateNextPage = CurrentPage < totalpages;
                 TotalPages = (int)totalpages;
             }

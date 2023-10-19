@@ -23,7 +23,6 @@ namespace Library
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }
