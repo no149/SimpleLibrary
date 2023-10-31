@@ -4,7 +4,7 @@ namespace Library.Pages;
 
 public partial class BookEditPage : ContentPage
 {
-	public BookEditPage(BookViewModel viewModel)
+	public BookEditPage(BookPageViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;

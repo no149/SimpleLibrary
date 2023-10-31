@@ -4,7 +4,7 @@
              x:Class="Library.Pages.BookEditPage"
              xmlns:viewmodel="clr-namespace:Library.ViewModels"             
              Title="{Binding Title}"
-             x:DataType="viewmodel:BookViewModel" FlowDirection="RightToLeft">
+             x:DataType="viewmodel:BookPageViewModel" FlowDirection="RightToLeft">
     <ContentPage.Resources>
         <Style x:Key="label" TargetType="Label">
             <Setter Property="Padding" Value="10"/>
@@ -23,34 +23,34 @@
         </Grid.RowDefinitions>
 
             <FlexLayout Grid.Row="0"  HorizontalOptions="Center">
-                <Entry MinimumWidthRequest="150" MaxLength="13"  Margin="10,0"/>
-                <Button Text="خواندن بارکد" />
+                <Entry MinimumWidthRequest="150" MaxLength="13"  Margin="10,0" Text="{Binding BookVm.Barcode}"/>
+                <Button Text="خواندن بارکد" Command="{Binding ReadBarcode}"/>
             </FlexLayout>
         
         <FlexLayout Grid.Row="1" Wrap="NoWrap" AlignItems="Center">
             <Label Text="عنوان" Style="{StaticResource label}" MinimumWidthRequest="75"></Label>
-            <Entry Text="{Binding Title}" Placeholder="عنوان" FlexLayout.Grow="1"/>
+            <Entry Text="{Binding BookVm.Title}" Placeholder="عنوان" FlexLayout.Grow="1"/>
         </FlexLayout>
 
         <FlexLayout Grid.Row="2" Wrap="NoWrap" AlignItems="Center">
             <Label Text="توضیح" Style="{StaticResource label}" MinimumWidthRequest="75"/>
-            <Entry Text="{Binding Description}" Placeholder="توضیح"   FlexLayout.Grow="1"/>
+            <Entry Text="{Binding BookVm.Description}" Placeholder="توضیح"   FlexLayout.Grow="1"/>
         </FlexLayout>
 
         <FlexLayout Grid.Row="3" Wrap="NoWrap" AlignItems="Center">
             <Label Text="ناشر" Style="{StaticResource label}" MinimumWidthRequest="75"/>
-            <Entry Text="{Binding Publisher}" Placeholder="ناشر" FlexLayout.Grow="1"/>
+            <Entry Text="{Binding BookVm.Publisher}" Placeholder="ناشر" FlexLayout.Grow="1"/>
         </FlexLayout>
 
         <FlexLayout Grid.Row="4" Wrap="NoWrap" AlignItems="Center">
             <Label Text="نویسنده" Style="{StaticResource label}" MinimumWidthRequest="75"></Label>
-            <Entry Text="{Binding Author}" Placeholder="نویسنده" FlexLayout.Grow="1"/>
+            <Entry Text="{Binding BookVm.Author}" Placeholder="نویسنده" FlexLayout.Grow="1"/>
         </FlexLayout>
 
 
 
         
-        <Image Grid.Row="5" Source="{Binding CoverImage}" Margin="0,1" >
+        <Image Grid.Row="5" Source="{Binding BookVm.CoverImage}" Margin="0,1" >
             <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectImageCommand}"
                               NumberOfTapsRequired="1" />
@@ -60,7 +60,7 @@
             </Image>
 
 
-        <Button Text="ذخیره" Command="{Binding SaveCommand}" Grid.Row="6"/>
+        <Button Text="ذخیره" Command="{Binding bookVm.SaveCommand}" Grid.Row="6"/>
     </Grid>
 
 </ContentPage>

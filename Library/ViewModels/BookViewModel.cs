@@ -27,6 +27,9 @@ namespace Library.ViewModels
         public int Id { get; set; }
         [ObservableProperty]
         private string _title;
+          [ObservableProperty]
+        private string _barcode;
+
         [ObservableProperty]
         private string _description;
         [ObservableProperty]
@@ -130,7 +133,7 @@ namespace Library.ViewModels
                 dbcontext.SaveChanges();
                 OnBookChanged?.Invoke(this, new BookChangedEventArgs()
                 {
-                    Book = new BookViewModel(book),
+                    Book = new BookViewModel(book,_finder),
                     ChangeType = Id == 0 ? ChangeType.Added : ChangeType.Changed
                 });
                 await Shell.Current.GoToAsync("..");
@@ -142,6 +145,11 @@ namespace Library.ViewModels
         async Task GoBack()
         {
 
+        }
+         [RelayCommand]
+        async Task ReadBarcode()
+        {
+System.Console.WriteLine(_finder);
         }
         [RelayCommand]
         async Task ScanBarcode(){

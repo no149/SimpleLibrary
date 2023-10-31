@@ -20,6 +20,8 @@ namespace Library
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<BookEditPage>();
+            builder.Services.AddSingleton<Services.FinderService>();
+            builder.Services.AddSingleton<BookPageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
