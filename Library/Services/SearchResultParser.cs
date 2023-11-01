@@ -56,6 +56,8 @@ namespace Library.Services
 
         private string GetValue(HtmlNode htmlNode)
         {
+            if(htmlNode==null)
+            return "";
             var sb = new StringBuilder(htmlNode.InnerText);
             sb = sb.Replace("\n", "");
             var val = sb.ToString().Trim();
@@ -65,32 +67,32 @@ namespace Library.Services
 
         private HtmlNode FindIsbnNode(HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"شابک\")]/following-sibling::span/span")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"شابک\")]/following-sibling::span/span")?[0];
         }
         private HtmlNode FindTitleNode(HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//a[contains(@href,'/bibliography')]/text()")[0];
+            return doc.DocumentNode.SelectNodes("//a[contains(@href,'/bibliography')]/text()")?[0];
         }
 
         private HtmlNode FindAuthorNode(HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"پدید\")]//span//text()")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"پدید\")]//span//text()")?[0];
         }
         private HtmlNode FindPublisherNode(HtmlAgilityPack.HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"نشر\")]/following-sibling::span")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"نشر\")]/following-sibling::span")?[0];
         }
         private HtmlNode FindTranslatorNode(HtmlAgilityPack.HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"مترجم\")]/following-sibling::span")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"مترجم\")]/following-sibling::span")?[0];
         }
         private HtmlNode FindPageCountNode(HtmlAgilityPack.HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"صفحات\")]/following-sibling::span")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"صفحات\")]/following-sibling::span")?[0];
         }
         private HtmlNode FindSubjectNode(HtmlAgilityPack.HtmlDocument doc)
         {
-            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"موضوع\")]/following-sibling::span")[0];
+            return doc.DocumentNode.SelectNodes("//span[contains(text(),\"موضوع\")]/following-sibling::span")?[0];
         }
     }
 }

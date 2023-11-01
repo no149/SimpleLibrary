@@ -133,7 +133,7 @@ namespace Library.ViewModels
                 dbcontext.SaveChanges();
                 OnBookChanged?.Invoke(this, new BookChangedEventArgs()
                 {
-                    Book = new BookViewModel(book,_finder),
+                    Book = new BookViewModel(book),
                     ChangeType = Id == 0 ? ChangeType.Added : ChangeType.Changed
                 });
                 await Shell.Current.GoToAsync("..");
@@ -146,17 +146,8 @@ namespace Library.ViewModels
         {
 
         }
-         [RelayCommand]
-        async Task ReadBarcode()
-        {
-System.Console.WriteLine(_finder);
-        }
-        [RelayCommand]
-        async Task ScanBarcode(){
-            Console.WriteLine("ScanBarcodeCommand");
-
-            
-        }
+      
+        
         [RelayCommand]
         async Task SelectImage()
         {
