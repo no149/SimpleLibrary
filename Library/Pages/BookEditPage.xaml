@@ -60,7 +60,11 @@
             </Image>
 
 
-        <Button Text="ذخیره" Command="{Binding BookVm.SaveCommand}" Grid.Row="6"/>
+<HorizontalStackLayout  Grid.Row="6">
+
+        <Button Text="ذخیره" Command="{Binding BookVm.SaveCommand}" />
+        <Button Text=" ذخیره و مورد جدید" Command="{Binding BookVm.SaveAndNewCommand}" />
+        </HorizontalStackLayout>
     </Grid>
 
 </ContentPage>

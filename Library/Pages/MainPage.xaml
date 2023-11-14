@@ -106,15 +106,15 @@
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="viewmodel:BookViewModel">
-                            <!--<SwipeView>
+                            <SwipeView>
                      <SwipeView.RightItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem 
                             Text="Delete" 
                             Command="{Binding DeleteBookCommand,Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}}" 
-                            CommandParameter="{Binding Id}"/>
+                            CommandParameter="{Binding Id}" BackgroundColor="Red"/>
                         </SwipeItems>
-                    </SwipeView.RightItems>-->
+                    </SwipeView.RightItems>
                             <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -144,7 +144,7 @@
                                 <Label Grid.Column="7" Text="{Binding Language}" Style="{StaticResource cell}"/>
 
                             </Grid>
-                            <!--</SwipeView>-->
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

@@ -97,6 +97,13 @@ namespace Library.ViewModels
             }
         }
 
+
+ [RelayCommand]
+        private async Task SaveAndNew()
+        {
+            await Save();
+            Reset();
+        }
         [RelayCommand]
         private async Task Save()
         {
@@ -141,12 +148,7 @@ namespace Library.ViewModels
         }
 
 
-        [RelayCommand]
-        async Task GoBack()
-        {
 
-        }
-      
         
         [RelayCommand]
         async Task SelectImage()
@@ -193,6 +195,8 @@ namespace Library.ViewModels
             Translator = "";
             Language = "";
             Id = 0;
+            this.CoverImage=null;
+
         }
 
         public event EventHandler<BookChangedEventArgs> OnBookChanged;
