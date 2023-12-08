@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Library.Data;
 using Library.Pages;
+using Library.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -147,6 +148,20 @@ namespace Library.ViewModels
             LoadBooks();
         }
 
+        [RelayCommand]
+void SelectedBookChanged()
+{
+    foreach(var book in Books)
+    {
+        if(book.Id==SelectedItem.Id)
+        {
+            book.IsSelected=true;
+        }
+        else 
+            book.IsSelected=false;
+    }
+    
+}
         [RelayCommand]
         void ToggleSearch()
         {

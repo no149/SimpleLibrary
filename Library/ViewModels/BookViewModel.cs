@@ -44,6 +44,10 @@ namespace Library.ViewModels
         private string _language;
         [ObservableProperty]
         private ImageSource _coverImage;
+
+         [ObservableProperty]
+        private bool _isSelected;
+
         private string _coverImagePath;
         private const string _coverImagePlaceHolder = "book_cover_placeholder.jpg";
         public BookViewModel()
