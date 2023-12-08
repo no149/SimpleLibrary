@@ -121,15 +121,15 @@ namespace Library.ViewModels
             IsBookSelected = SelectedItem != null;
         }
         [RelayCommand]
-        async Task DeleteBook(int bookId)
+        async Task DeleteBook()
         {
             using (var dbcontext = new LibraryDbContext())
             {
-                var book = dbcontext.Books.Single(book => book.Id == bookId);
+                var book = dbcontext.Books.Single(book => book.Id ==SelectedItem.Id);
 
                 dbcontext.Remove(book);
                 dbcontext.SaveChanges();
-                var bookVm = Books.Single(b => b.Id == bookId);
+                var bookVm = Books.Single(b => b.Id == SelectedItem.Id);
                 Books.Remove(bookVm);
             }
         }
@@ -178,7 +178,7 @@ namespace Library.ViewModels
                 else
                     totalpages = Math.Ceiling((decimal)dbContext.Books.Count() / _pageSize);
 
-
+                totalpages= totalpages==0?1:totalpages;
                 CanNavigateNextPage = CurrentPage < totalpages;
                 TotalPages = (int)totalpages;
             }

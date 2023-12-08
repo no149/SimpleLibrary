@@ -101,13 +101,21 @@ namespace Library.ViewModels
  [RelayCommand]
         private async Task SaveAndNew()
         {
-            await Save();
+            await SaveBook();
             Reset();
         }
         [RelayCommand]
         private async Task Save()
         {
-            using (var dbcontext = new LibraryDbContext())
+          await SaveBook();
+            //TODO: this method throws error because of dotnet bug
+                await Shell.Current.GoToAsync("..");
+
+        }
+
+private async Task SaveBook()
+{
+      using (var dbcontext = new LibraryDbContext())
             {
                 Book book = null;
                 if (Id == 0)
@@ -143,11 +151,8 @@ namespace Library.ViewModels
                     Book = new BookViewModel(book),
                     ChangeType = Id == 0 ? ChangeType.Added : ChangeType.Changed
                 });
-                await Shell.Current.GoToAsync("..");
             }
-        }
-
-
+}
 
         
         [RelayCommand]
