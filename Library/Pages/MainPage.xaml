@@ -12,20 +12,24 @@
             <Setter Property="FontAttributes" Value="Bold"></Setter>
 
         </Style>
-        <Style  x:Key="row" TargetType="Grid">
-            <Style.Triggers>
-                <DataTrigger TargetType="CollectionView" Binding="{Binding SelectedItem}" Value="{x:Null}">
-                    <Setter Property="Background" Value="aqua" TargetName="BookRow"/>
-                </DataTrigger>
-            </Style.Triggers>
-
-        </Style>
+       
         <Style  x:Key="cell" TargetType="Label">
             <!--<Style.Triggers>
                 <Trigger TargetType="Label" Property="Background" Value="yellow"/>
             </Style.Triggers>-->
 
         </Style>
+         <Style TargetType="Grid" x:Key="BookRow">
+          <Style.Triggers>
+                                <DataTrigger TargetType="Grid" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="aqua"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Grid" Binding="{Binding IsSelected}" Value="False">
+                                    <Setter Property="BackgroundColor" Value="White"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+
+</Style>
         <Style  x:Key="headingBorder" TargetType="Border">
             <Setter Property="Stroke" Value="black"></Setter>
         </Style>
@@ -33,6 +37,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding EditButtonText}" Command="{Binding AddOrEditBookCommand}" Order="Primary"/>
         <ToolbarItem Text="جستجو" Command="{Binding ToggleSearchCommand}" Order="Primary"/>
+        <ToolbarItem Text="حذف" Command="{Binding DeleteBookCommand}"  IsEnabled="True"/>
     </ContentPage.ToolbarItems>
 
     <Grid>
@@ -51,22 +56,11 @@
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="80*,20*" ColumnDefinitions="*">
                 <CollectionView ItemsSource="{Binding Books}"
-                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" >
-                    <CollectionView.Style>
-                        <Style TargetType="Grid">
-                            <Style.Triggers>
-                                <DataTrigger TargetType="CollectionView" Binding="{Binding IsBookSelected}" Value="True">
-                                    <Setter Property="BackgroundColor" Value="aqua"/>
-                                </DataTrigger>
-                                <DataTrigger TargetType="CollectionView" Binding="{Binding IsBookSelected}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </CollectionView.Style>
+                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedBookChanged}" >
+                  
 
                     <CollectionView.Header>
-                        <Grid>
+                        <Grid>                      
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25*" />
                                 <ColumnDefinition Width="15*"/>
@@ -106,7 +100,7 @@
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="viewmodel:BookViewModel">
-                            <SwipeView>
+                        <!--    <SwipeView>
                      <SwipeView.RightItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem 
@@ -114,8 +108,10 @@
                             Command="{Binding DeleteBookCommand,Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}}" 
                             CommandParameter="{Binding Id}" BackgroundColor="Red"/>
                         </SwipeItems>
-                    </SwipeView.RightItems>
-                            <Grid Padding="10">
+                    </SwipeView.RightItems> -->
+                            <Grid Padding="10" Style="{StaticResource BookRow}" >
+      
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
@@ -144,7 +140,7 @@
                                 <Label Grid.Column="7" Text="{Binding Language}" Style="{StaticResource cell}"/>
 
                             </Grid>
-                            </SwipeView>
+                            <!-- </SwipeView> -->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -159,7 +155,7 @@
             <Button ImageSource="{FontImageSource   Glyph='&#x000002C3;'}" Grid.Column="0" HorizontalOptions="Fill" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanNavigatePreviousPage}"/>
             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
                 <Label Text="{Binding CurrentPage}" />
-                <Label Text="از"/>
+                <Label Text=" از "/>
                 <Label Text="{Binding TotalPages}" />
             </HorizontalStackLayout>
             <Button Grid.Column="2" HorizontalOptions="Fill" ImageSource="{FontImageSource   Glyph='&#x000002C2;'}" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanNavigateNextPage}"/>
