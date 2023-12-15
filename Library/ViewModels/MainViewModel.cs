@@ -17,8 +17,7 @@ namespace Library.ViewModels
     {
         [ObservableProperty]
         private ObservableCollection<BookViewModel> _books;
-        [ObservableProperty]
-        private string _editButtonText = "کتاب جدید";
+        
         [ObservableProperty]
         private BookViewModel _selectedItem;
         private BookViewModel _bookVm;
@@ -32,6 +31,10 @@ namespace Library.ViewModels
         private int _pageSize = 10;
         [ObservableProperty]
         private bool _canNavigatePreviousPage = false;
+        [ObservableProperty]
+        private bool _canDelete = false;
+         [ObservableProperty]
+        private bool _canEdit = false;
         [ObservableProperty]
         private bool _canNavigateNextPage = false;
 
@@ -60,20 +63,19 @@ namespace Library.ViewModels
 
 
 
-
-        [CommunityToolkit.Mvvm.Input.RelayCommand]
-        async Task AddOrEditBook()
+[CommunityToolkit.Mvvm.Input.RelayCommand]
+        async Task AddBook()
         {
-            if (SelectedItem == null)
-            {
-                _bookVm.Reset();
+_bookVm.Reset();
                 await Shell.Current.GoToAsync(nameof(BookEditPage));
-            }
-            else
-            {
+        }
+        [CommunityToolkit.Mvvm.Input.RelayCommand]
+        async Task EditBook()
+        {
+         
                 _bookVm.Copy(SelectedItem);
                 await Shell.Current.GoToAsync(nameof(BookEditPage));
-            }
+            
         }
 
         internal void Init()
@@ -110,10 +112,7 @@ namespace Library.ViewModels
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (SelectedItem == null)
-                EditButtonText = "کتاب جدید";
-            else
-                EditButtonText = "ویرایش";
+            
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -151,7 +150,9 @@ namespace Library.ViewModels
         [RelayCommand]
 void SelectedBookChanged()
 {
-    if(SelectedItem!=null)
+    var bookSelected= SelectedItem!=null;
+CanEdit= CanDelete= bookSelected;
+    if(bookSelected)
     foreach(var book in Books)
     {
         if(book.Id==SelectedItem.Id)

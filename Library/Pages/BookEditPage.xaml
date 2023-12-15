@@ -9,6 +9,8 @@
         <Style x:Key="label" TargetType="Label">
             <Setter Property="Padding" Value="10"/>
         </Style>
+               
+
     </ContentPage.Resources>
 
     <Grid>
@@ -50,11 +52,19 @@
 
 
         
-        <Image Grid.Row="5" Source="{Binding BookVm.CoverImage}" Margin="0,1" >
+        <Image Grid.Row="5" Source="{Binding BookVm.CoverImagePlaceHolder}" Margin="0,1" IsVisible="{Binding BookVm.HasNoCover}" >
             <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectImageCommand}"
+                    <TapGestureRecognizer Command="{Binding BookVm.SelectImageCommand}"
                               NumberOfTapsRequired="1" />
-                    <ClickGestureRecognizer Command="{Binding SelectImageCommand}"
+                    <ClickGestureRecognizer Command="{Binding BookVm.SelectImageCommand}"
+                             />
+                </Image.GestureRecognizers>
+            </Image>
+              <Image Grid.Row="5" Source="{Binding BookVm.CoverImage}" Margin="0,1" IsVisible="{Binding BookVm.HasCover}" >
+            <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BookVm.SelectImageCommand}"
+                              NumberOfTapsRequired="1" />
+                    <ClickGestureRecognizer Command="{Binding BookVm.SelectImageCommand}"
                              />
                 </Image.GestureRecognizers>
             </Image>

@@ -31,6 +31,7 @@ namespace Library.Services
         }
         private FindResult[] FindResults(HtmlAgilityPack.HtmlDocument doc)
         {
+        
             var title = GetValue(FindTitleNode(doc));
             var author = GetValue(FindAuthorNode(doc));
             var publisher = GetValue(FindPublisherNode(doc));
@@ -41,16 +42,19 @@ namespace Library.Services
 
             var cultInfo = (CultureInfo)CultureInfo.GetCultureInfo("fa").Clone();
             cultInfo.NumberFormat.DigitSubstitution = DigitShapes.Context;
+            short pageCntInt= 0;
+            short.TryParse(pageCnt,cultInfo,out pageCntInt);
             return new FindResult[] { new FindResult {
                 Author = author,
                 Publisher = publisher,
                 Title = title,
                 Translator = translator,
-                PageCount = Int16.Parse(pageCnt,cultInfo),
+                PageCount =pageCntInt ,
                 ISBN= isbn,
                  Subject=subject
 
             } };
+           
         }
 
 

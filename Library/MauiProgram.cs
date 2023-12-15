@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+
+using Microsoft.Extensions.Logging;
 using Library.ViewModels;
 using Library.Pages;
 
@@ -11,6 +13,7 @@ namespace Library
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+          
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

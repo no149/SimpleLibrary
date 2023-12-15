@@ -42,17 +42,22 @@ namespace Library.ViewModels
         private string _translator;
         [ObservableProperty]
         private string _language;
-        [ObservableProperty]
+        
         private ImageSource _coverImage;
 
          [ObservableProperty]
         private bool _isSelected;
+         [ObservableProperty]
+        private bool _hasCover;
+         [ObservableProperty]
+        private bool _hasNoCover;
 
-        private string _coverImagePath;
-        private const string _coverImagePlaceHolder = "book_cover_placeholder.jpg";
+
+        private string _selectedCoverImagePath;
+        
         public BookViewModel()
         {
-            _coverImage = _coverImagePlaceHolder;
+           
         }
         public BookViewModel(Book book)
         {
@@ -76,7 +81,7 @@ namespace Library.ViewModels
 #elif WINDOWS
                  image = new Microsoft.Maui.Graphics.Win2D.W2DImageLoadingService().FromBytes(book.CoverImage);
 #endif
-                var extension = Path.GetExtension(_coverImagePath);
+                var extension = Path.GetExtension(_selectedCoverImagePath);
                 var format = ImageFormat.Gif;
                 switch (extension)
                 {
@@ -93,6 +98,16 @@ namespace Library.ViewModels
 
         }
 
+public ImageSource CoverImage
+{
+    get =>_coverImage;
+    set {
+        SetProperty(ref _coverImage,value);
+        HasCover= value!=null;
+        HasNoCover=!HasCover;
+    }
+}
+public  ImageSource CoverImagePlaceHolder => "book_cover_placeholder.jpg";
         public bool IsNew
         {
             get
@@ -139,9 +154,9 @@ private async Task SaveBook()
                 book.Title = Title;
 
 
-                if (_coverImagePath != _coverImagePlaceHolder && string.IsNullOrEmpty(_coverImagePath) == false)
+                if (string.IsNullOrEmpty(_selectedCoverImagePath) == false)
                 {
-                    var imageStream = new FileStream(_coverImagePath, FileMode.Open);
+                    var imageStream = new FileStream(_selectedCoverImagePath, FileMode.Open);
                     using (imageStream)
                     {
                         var arr = new byte[imageStream.Length];
@@ -167,7 +182,7 @@ private async Task SaveBook()
                 FileResult photo = await MediaPicker.Default.PickPhotoAsync();
                 if (photo != null)
                 {
-                    _coverImagePath = photo.FullPath;
+                    _selectedCoverImagePath = photo.FullPath;
                     CoverImage = StreamImageSource.FromStream(x => photo.OpenReadAsync());
                 }
 
@@ -187,10 +202,6 @@ private async Task SaveBook()
             Language = selectedItem.Language;
             Id = selectedItem.Id;
             CoverImage = selectedItem.CoverImage;
-            if (CoverImage == null)
-            {
-                CoverImage = _coverImagePlaceHolder;
-            }
         }
 
         internal void Reset()
@@ -203,9 +214,9 @@ private async Task SaveBook()
             Author = "";
             Translator = "";
             Language = "";
-            Id = 0;
-            this.CoverImage=null;
-
+            Id = 0;      
+            CoverImage=null;  
+           _selectedCoverImagePath=null;
         }
 
         public event EventHandler<BookChangedEventArgs> OnBookChanged;

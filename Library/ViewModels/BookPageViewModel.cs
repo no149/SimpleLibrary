@@ -16,6 +16,8 @@ public partial class BookPageViewModel
        [RelayCommand]
         async Task ReadBarcode()
         {
+          try
+          {
             var books= await _finder.FindByIsbn(BookVm.Barcode);
             if(books.Length==0)
             return;
@@ -27,5 +29,12 @@ BookVm.Description= books[0].Subject;
 
 
         }
+        catch(Exception ex)
+        {
+          //TODO
+        }
+        
+      
+}
 }
 }
