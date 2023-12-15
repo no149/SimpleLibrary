@@ -56,7 +56,7 @@
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="80*,20*" ColumnDefinitions="*">
                 <CollectionView ItemsSource="{Binding Books}"
-                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedBookChanged}" >
+                ItemsLayout="VerticalGrid" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedBookChangedCommand}" >
                   
 
                     <CollectionView.Header>

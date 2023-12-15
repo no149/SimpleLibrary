@@ -151,6 +151,7 @@ namespace Library.ViewModels
         [RelayCommand]
 void SelectedBookChanged()
 {
+    if(SelectedItem!=null)
     foreach(var book in Books)
     {
         if(book.Id==SelectedItem.Id)
